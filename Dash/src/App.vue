@@ -6,11 +6,13 @@
 
 <script>
 import Dash from './components/DashMain'
+import Login from './components/Login'
 
 export default {
   name: 'App',
   components: {
-    Dash
+    Dash,
+	Login
   }
 }
 </script>
