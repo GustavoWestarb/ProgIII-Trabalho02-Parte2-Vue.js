@@ -5,7 +5,8 @@
       <div class="title">
         <img src="https://ih0.redbubble.net/image.565893645.7574/ap,550x550,12x12,1,transparent,t.u2.png">
         <div class="md-title">Login</div>
-        <!-- <div class="md-body-1">Build beautiful apps with Material Design and Vue.js</div> -->
+        <a href="/">Registre-se</a>
+        <label>para aproveitar todas as funcionalidades de Dash</label>
       </div>
 
       <div class="form">
@@ -58,7 +59,7 @@ export default {
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-      }, 5000);
+      }, 1500);
     }
   }
   
