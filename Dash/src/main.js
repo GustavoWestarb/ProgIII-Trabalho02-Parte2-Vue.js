@@ -6,9 +6,11 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import App from './AppLogin'
 import Checkbox from 'vue-material-checkbox'
+import VueCookies from 'vue-cookies'
 
 Vue.use(VueMaterial)
 Vue.use(Checkbox)
+Vue.use(VueCookies)
 
 Vue.config.productionTip = false
 

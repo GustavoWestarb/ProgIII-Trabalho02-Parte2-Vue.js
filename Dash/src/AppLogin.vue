@@ -13,15 +13,16 @@
       <div class="form">
         <md-field>
           <label>Usuário</label>
-          <md-input v-model="login.usuario" autofocus></md-input>
+          <md-input v-model="login.usuario" id="usuarioInput" autofocus></md-input>
         </md-field>
 
         <md-field md-has-password>
           <label>Senha</label>
-          <md-input v-model="login.senha" type="password"></md-input>
+          <md-input v-model="login.senha" id="senhaInput" type="password"></md-input>
         </md-field>
 
-        <md-checkbox v-model="login.lembrarme" class="md-primary">Lembrar-me</md-checkbox>
+        <md-checkbox v-model="login.lembrarme" id="lembrarmeInput" class="md-primary">Lembrar-me</md-checkbox>
+
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
@@ -38,29 +39,33 @@
 </template>
 
 <script>
-import checkbox from "vue-material-checkbox";
-
+import Checkbox from 'vue-material-checkbox'
 export default {
   name: "AppLogin",
-  data() {
-    return {
-      loading: false,
-      login: {
-        usuario: "",
-        senha: "",
-        lembrarme: false
-      }
-    };
-  },
   methods: {
     auth() {
       // your code to login user
       // this is only for example of loading
+
+      this.$cookies.set("usuario", document.getElementById("usuarioInput").value);
+      this.$cookies.set("senha", document.getElementById("senhaInput").value);
+      this.$cookies.set("lembrarme", document.getElementById("lembrarmeInput").checked);
+
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
       }, 1500);
     }
+  },
+  data() {
+    return {
+      loading: false,
+      login: {
+        usuario: $cookies.get("usuario"),
+        senha: $cookies.get("senha"),
+        lembrarme: $cookies.get("lembrarme")
+      }      
+    };
   }
 };
 </script>
