@@ -1,16 +1,16 @@
 <template>
-  <div id="app">
-    <Dash/>
+  <div id="AppLogin">
+    <Login/>
   </div>
 </template>
 
 <script>
-import Dash from './components/DashMain'
+import Login from './components/Login'
 
 export default {
-  name: 'App',
+  name: 'AppLogin',
   components: {
-    Dash
+    Login
   }
 }
 </script>
