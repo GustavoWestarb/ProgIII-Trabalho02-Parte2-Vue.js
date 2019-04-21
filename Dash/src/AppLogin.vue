@@ -1,9 +1,10 @@
 <template>
   <div class="centered-container">
     <md-content class="md-elevation-3">
-
       <div class="title">
-        <img src="https://ih0.redbubble.net/image.565893645.7574/ap,550x550,12x12,1,transparent,t.u2.png">
+        <img
+          src="https://ih0.redbubble.net/image.565893645.7574/ap,550x550,12x12,1,transparent,t.u2.png"
+        >
         <div class="md-title">Login</div>
         <a href="/">Registre-se</a>
         <label>para aproveitar todas as funcionalidades de Dash</label>
@@ -18,11 +19,11 @@
         <md-field md-has-password>
           <label>Senha</label>
           <md-input v-model="login.senha" type="password"></md-input>
-        </md-field>        
-      
+        </md-field>
+
         <md-checkbox v-model="login.lembrarme" class="md-primary">Lembrar-me</md-checkbox>
       </div>
-      
+
       <div class="actions md-layout md-alignment-center-space-between">
         <a href="/resetpassword">Esqueci minha senha</a>
         <md-button class="md-raised md-primary" @click="auth">Logar</md-button>
@@ -31,14 +32,13 @@
       <div class="loading-overlay" v-if="loading">
         <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
       </div>
-
     </md-content>
-    <div class="background" />
+    <div class="background"/>
   </div>
 </template>
 
 <script>
-import checkbox from 'vue-material-checkbox'
+import checkbox from "vue-material-checkbox";
 
 export default {
   name: "AppLogin",
@@ -62,7 +62,6 @@ export default {
       }, 1500);
     }
   }
-  
 };
 </script>
 
