@@ -21,8 +21,9 @@
           <md-input v-model="login.senha" id="senhaInput" type="password"></md-input>
         </md-field>
 
-        <md-checkbox v-model="login.lembrarme" id="lembrarmeInput" class="md-primary">Lembrar-me</md-checkbox>
-
+        <!-- <md-checkbox v-model="lembrarmeBool" id="lembrarmeInput" class="md-primary">Lembrar-me</md-checkbox> -->
+        <input type="checkbox" id="lembrarmeInput">Lembrar-me
+        <br>
       </div>
 
       <div class="actions md-layout md-alignment-center-space-between">
@@ -39,7 +40,8 @@
 </template>
 
 <script>
-import Checkbox from 'vue-material-checkbox'
+import Checkbox from "vue-material-checkbox";
+
 export default {
   name: "AppLogin",
   methods: {
@@ -47,9 +49,18 @@ export default {
       // your code to login user
       // this is only for example of loading
 
-      this.$cookies.set("usuario", document.getElementById("usuarioInput").value);
-      this.$cookies.set("senha", document.getElementById("senhaInput").value);
-      this.$cookies.set("lembrarme", document.getElementById("lembrarmeInput").checked);
+      if (document.getElementById("lembrarmeInput").checked) {
+        $cookies.set("usuario", document.getElementById("usuarioInput").value);
+        $cookies.set("senha", document.getElementById("senhaInput").value);
+        $cookies.set(
+          "lembrarme",
+          document.getElementById("lembrarmeInput").checked
+        );
+      } else {
+        $cookies.remove("usuario");
+        $cookies.remove("senha");
+        $cookies.remove("lembrarme");
+      }
 
       this.loading = true;
       setTimeout(() => {
@@ -64,7 +75,7 @@ export default {
         usuario: $cookies.get("usuario"),
         senha: $cookies.get("senha"),
         lembrarme: $cookies.get("lembrarme")
-      }      
+      }
     };
   }
 };
