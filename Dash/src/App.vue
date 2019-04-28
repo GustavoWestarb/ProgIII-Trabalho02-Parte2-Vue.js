@@ -6,6 +6,7 @@
 
 <script>
 import Dash from './components/DashMain'
+import { FormValidation } from "./formValidation"
 
 export default {
   name: 'App',

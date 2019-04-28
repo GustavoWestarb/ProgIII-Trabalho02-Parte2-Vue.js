@@ -1,3 +1,4 @@
+
 <template>
   <div class="page-container">
       <md-app md-waterfall md-mode="overlap">
@@ -98,9 +99,9 @@
               </md-ripple>
             </md-card>
 
-            <form novalidate @submit.prevent="validateUser">
-              <md-card class="md-layout-item md-size-50 md-small-size-100 card" md-with-hover>
-                <md-ripple>
+            
+              <md-card class="md-layout-item md-size-25 md-small-size-100 card" md-with-hover>
+                <form novalidate class="md-layout" @submit.prevent="validateUser">
                   <md-card-header>
                     <div class="md-title">Dados</div>
                   </md-card-header>
@@ -109,38 +110,43 @@
                     <div class="md-layout md-gutter">
                       <div class="md-layout-item md-small-size-100">
                         <md-field>
-                          <label for="first-name">First Name</label>
-                          <md-input name="first-name" id="first-name" autocomplete="given-name" />
+                          <label for="nome">Nome</label>
+                          <md-input name="nome" id="first-name" autocomplete="given-name" />
                         </md-field>
                       </div>
 
                       <div class="md-layout-item md-small-size-100">
                         <md-field>
-                          <label for="first-name">First Name</label>
-                          <md-input name="first-name" id="first-name" autocomplete="given-name" />
+                          <label for="sobrenome">Sobrenome</label>
+                          <md-input name="sobrenome" id="first-name" autocomplete="given-name" />
                         </md-field>
                       </div>
 
                       <div class="md-layout-item md-small-size-100">
                         <md-field>
-                          <label for="first-name">First Name</label>
-                          <md-input name="first-name" id="first-name" autocomplete="given-name" />
+                          <label for="copy">Copia</label>
+                          <md-input name="copy" id="first-name" autocomplete="given-name" />
                         </md-field>
                       </div>
 
                       <div class="md-layout-item md-small-size-100">
                         <md-field>
-                          <label for="first-name">First Name</label>
-                          <md-input name="first-name" id="first-name" autocomplete="given-name" />
+                          <label for="email">E-mail</label>
+                          <md-input name="email" id="first-name" autocomplete="given-name" />
                         </md-field>
                       </div>
                     </div>
+                    
                   </md-card-content>
-                </md-ripple>
-              </md-card>
-            </form>
 
-            <md-card class="md-layout-item md-size-50 md-small-size-100 card" md-with-hover>
+                  <md-cards-actions>
+                    <md-button class="md-accent">Cancelar</md-button>
+                    <md-button type="submit" class="md-primary" :disabled="sending">Enviar</md-button>
+                  </md-cards-actions>
+                </form>
+              </md-card>
+
+            <md-card class="md-layout-item md-size-70 md-small-size-100 card" md-with-hover>
               <md-ripple>
                 <md-card-header>
                   <div class="md-title">Programação III</div>
@@ -238,6 +244,9 @@
 </style>
 
 <script>
+
+import { FormValidation } from "../FormValidation"
+
 export default {
   name: 'Waterfall',
   data: () => ({
@@ -295,6 +304,7 @@ export default {
       }
     }
 }
+
 
 </script>
 
