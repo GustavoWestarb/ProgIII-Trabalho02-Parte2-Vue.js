@@ -100,7 +100,7 @@
             </md-card>
 
             
-              <md-card class="md-layout-item md-size-25 md-small-size-100 card" md-with-hover>
+              <md-card class="md-layout-item md-size-25 md-small-size-100 card" md-with-hover style="max-height: 456px;">
                 <form novalidate class="md-layout" @submit.prevent="addItem">
                   <md-card-header>
                     <div class="md-title">Dados</div>
@@ -141,7 +141,7 @@
                   </md-card-content>
 
                   <md-cards-actions>
-                    <md-button class="md-accent">Cancelar</md-button>
+                    <md-button class="md-accent" @click="this.clearForm" :disabled="sending">Cancelar</md-button>
                     <md-button type="submit" class="md-primary" :disabled="sending">Enviar</md-button>
                   </md-cards-actions>
                 </form>
@@ -155,9 +155,9 @@
 
                 <md-card-content>
                   <div class="md-layout-item md-small-size-100">
-                    <md-table v-model="users" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" :md-sort-fn="customSort" md-card>
+                    <md-table v-model="emails" :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" :md-sort-fn="customSort" md-card>
                       <md-table-toolbar>
-                        <h1 class="md-title">Users</h1>
+                        <h1 class="md-title">Emails</h1>
                       </md-table-toolbar>
 
                       <md-table-row slot="md-table-row" slot-scope="{ item }">
@@ -260,7 +260,7 @@ export default {
   data: () => ({
       currentSort: 'name',
       currentSortOrder: 'asc',
-      users: [
+      emails: [
         {
           id: 1,
           name: 'Shawna',
@@ -359,7 +359,7 @@ export default {
         // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
           this.sending = false
-          this.users.push(
+          this.emails.push(
           {
             id: Math.floor((Math.random() * 100) + 1),
             name: `${this.form.nome}`,
