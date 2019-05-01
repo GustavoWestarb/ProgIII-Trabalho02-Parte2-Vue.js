@@ -101,7 +101,7 @@
 
             
               <md-card class="md-layout-item md-size-25 md-small-size-100 card" md-with-hover>
-                <form novalidate class="md-layout" @submit.prevent="validateUser">
+                <form novalidate class="md-layout" @submit.prevent="addItem">
                   <md-card-header>
                     <div class="md-title">Dados</div>
                   </md-card-header>
@@ -109,32 +109,33 @@
                   <md-card-content>
                     <div class="md-layout md-gutter">
                       <div class="md-layout-item md-small-size-100">
-                        <md-field>
+                        <md-field :class="getValidationClass('nome')">
                           <label for="nome">Nome</label>
-                          <md-input name="nome" id="first-name" autocomplete="given-name" />
+                          <md-input name="nome" id="nome" v-model="form.nome" :disabled="sending"  />
                         </md-field>
                       </div>
 
                       <div class="md-layout-item md-small-size-100">
-                        <md-field>
+                        <md-field :class="getValidationClass('sobrenome')">
                           <label for="sobrenome">Sobrenome</label>
-                          <md-input name="sobrenome" id="first-name" autocomplete="given-name" />
+                          <md-input name="sobrenome" id="sobrenome" autocomplete="family-name" v-model="form.sobrenome" :disabled="sending" />
                         </md-field>
                       </div>
 
                       <div class="md-layout-item md-small-size-100">
-                        <md-field>
-                          <label for="copy">Copia</label>
-                          <md-input name="copy" id="first-name" autocomplete="given-name" />
-                        </md-field>
-                      </div>
-
-                      <div class="md-layout-item md-small-size-100">
-                        <md-field>
+                        <md-field :class="getValidationClass('email')">
                           <label for="email">E-mail</label>
-                          <md-input name="email" id="first-name" autocomplete="given-name" />
+                          <md-input name="email" id="email" autocomplete="email" v-model="form.email" :disabled="sending"  />
                         </md-field>
                       </div>
+
+                      <div class="md-layout-item md-small-size-100">
+                        <md-field :class="getValidationClass('copy')">
+                          <label for="copy">Copia</label>
+                          <md-input name="copy" id="copy" autocomplete="email" v-model="form.copy" md-dense :disabled="sending"/>
+                        </md-field>
+                      </div>
+
                     </div>
                     
                   </md-card-content>
@@ -161,10 +162,10 @@
 
                       <md-table-row slot="md-table-row" slot-scope="{ item }">
                         <md-table-cell md-label="ID" md-numeric>{{ item.id }}</md-table-cell>
-                        <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                        <md-table-cell md-label="Nome" md-sort-by="name">{{ item.name }}</md-table-cell>
+                        <md-table-cell md-label="Sobrenome" md-sort-by="LastName">{{ item.lastName }}</md-table-cell>
                         <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
-                        <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
-                        <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
+                        <md-table-cell md-label="Copia" md-sort-by="copy">{{ item.copy }}</md-table-cell>
                       </md-table-row>
                     </md-table>
                   </div>
@@ -245,46 +246,55 @@
 
 <script>
 
+import { validationMixin } from 'vuelidate'
+  import {
+    required,
+    email,
+    minLength,
+    maxLength
+  } from 'vuelidate/lib/validators'
+
 export default {
-  name: 'Waterfall',
+  name: 'FormValidation',
+  mixins: [validationMixin],
   data: () => ({
       currentSort: 'name',
       currentSortOrder: 'asc',
       users: [
         {
           id: 1,
-          name: 'Shawna Dubbin',
+          name: 'Shawna',
+          lastName: 'Dubbin',
           email: 'sdubbin0@geocities.com',
-          gender: 'Male',
-          title: 'Assistant Media Planner'
+          copy: 'sdubbin0@geocities.com'
         },
         {
           id: 2,
-          name: 'Odette Demageard',
+          name: 'Odette',
+          lastName: 'Dubbin',
           email: 'odemageard1@spotify.com',
-          gender: 'Female',
-          title: 'Account Coordinator'
+          copy: 'sdubbin0@geocities.com'
         },
         {
           id: 3,
-          name: 'Lonnie Izkovitz',
+          name: 'Lonnie',
+          lastName: 'Izkovitz',
           email: 'lizkovitz3@youtu.be',
-          gender: 'Female',
-          title: 'Operator'
+          copy: 'sdubbin0@geocities.com'
         },
         {
           id: 4,
-          name: 'Thatcher Stave',
+          name: 'Thatcher',
+          lastName: 'Stave',
           email: 'tstave4@reference.com',
-          gender: 'Male',
-          title: 'Software Test Engineer III'
+          copy: 'sdubbin0@geocities.com'
         },
         {
           id: 5,
-          name: 'Clarinda Marieton',
+          name: 'Clarinda',
+          lastName: 'Marieton',
           email: 'cmarietonh@theatlantic.com',
-          gender: 'Female',
-          title: 'Paralegal'
+          copy: 'sdubbin0@geocities.com'
         }
       ],
       form: {
@@ -293,10 +303,28 @@ export default {
         copy: null,
         email: null,
       },
-      userSaved: false,
-      sending: false,
-      lastUser: null
+      sending: false
     }),
+    validations: {
+      form: {
+        nome: {
+          required,
+          minLength: minLength(3)
+        },
+        sobrenome: {
+          required,
+          minLength: minLength(3)
+        },
+        copy: {
+          required,
+          email
+        },
+        email: {
+          required,
+          email
+        }
+      }
+    },
     methods: {
       customSort (value) {
         return value.sort((a, b) => {
@@ -325,23 +353,28 @@ export default {
         this.form.copy = null
         this.form.email = null
       },
-      saveUser () {
+      addItemInTable () {
         this.sending = true
 
         // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
-          this.lastUser = `${this.form.nome} ${this.form.sobrenome}`
-          this.userSaved = true
           this.sending = false
+          this.users.push(
+          {
+            id: Math.floor((Math.random() * 100) + 1),
+            name: `${this.form.nome}`,
+            lastName: `${this.form.sobrenome}`,
+            email: `${this.form.email}`,
+            copy: `${this.form.copy}`
+          })
           this.clearForm()
         }, 1500)
       },
-      validateUser () {
-        alert('teste')
+      addItem () {
         this.$v.$touch()
 
         if (!this.$v.$invalid) {
-          this.saveUser()
+          this.addItemInTable()
         }
       }
     }
