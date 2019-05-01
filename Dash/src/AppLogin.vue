@@ -21,7 +21,7 @@
           <md-input v-model="login.senha" id="senhaInput" type="password"></md-input>
         </md-field>
 
-        <md-switch v-model="login.lembrarme" id="lembrarmeInput" class="md-primary">Lembrar-me</md-switch>
+        <md-checkbox v-model="login.lembrarme" id="lembrarmeInput" type="Boolean" class="md-primary">Lembrar-me</md-checkbox>
         <br>
       </div>
 
@@ -45,24 +45,19 @@ export default {
   name: "AppLogin",
   methods: {
     auth() {
-      // your code to login user
-      // this is only for example of loading
-
-      if (document.getElementById("lembrarmeInput").value == "true") {
+      if (this.login.lembrarme) {
         $cookies.set("usuario", document.getElementById("usuarioInput").value);
         $cookies.set("senha", document.getElementById("senhaInput").value);
-        $cookies.set("lembrarme", document.getElementById("lembrarmeInput").value);
+        this.$session.set("session", "dash");
       } else {
         $cookies.remove("usuario");
         $cookies.remove("senha");
-        $cookies.remove("lembrarme");
-      }
-
+      }      
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
-      }, 1500);
-    }
+      }, 1500);            
+    },
   },
   data() {
     return {
@@ -70,7 +65,7 @@ export default {
       login: {
         usuario: $cookies.get("usuario"),
         senha: $cookies.get("senha"),
-        lembrarme: $cookies.get("lembrarme")
+        lembrarme: true
       }
     };
   }

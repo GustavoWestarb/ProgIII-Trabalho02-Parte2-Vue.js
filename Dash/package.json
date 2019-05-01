@@ -16,6 +16,7 @@
     "vue-cookies": "^1.5.13",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-material-checkbox": "^1.2.1",
+    "vue-session": "^1.0.0",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
