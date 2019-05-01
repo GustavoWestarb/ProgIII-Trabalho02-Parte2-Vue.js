@@ -4,8 +4,9 @@ import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
-import App from './AppLogin'
+import App from './App'
 import VueCookies from 'vue-cookies'
+
 
 Vue.use(VueMaterial)
 Vue.use(VueCookies)
