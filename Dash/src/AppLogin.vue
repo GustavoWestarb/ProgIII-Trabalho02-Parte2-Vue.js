@@ -21,8 +21,7 @@
           <md-input v-model="login.senha" id="senhaInput" type="password"></md-input>
         </md-field>
 
-        <!-- <md-checkbox v-model="lembrarmeBool" id="lembrarmeInput" class="md-primary">Lembrar-me</md-checkbox> -->
-        <input type="checkbox" id="lembrarmeInput">Lembrar-me
+        <md-switch v-model="login.lembrarme" id="lembrarmeInput" class="md-primary">Lembrar-me</md-switch>
         <br>
       </div>
 
@@ -49,13 +48,10 @@ export default {
       // your code to login user
       // this is only for example of loading
 
-      if (document.getElementById("lembrarmeInput").checked) {
+      if (document.getElementById("lembrarmeInput").value == "true") {
         $cookies.set("usuario", document.getElementById("usuarioInput").value);
         $cookies.set("senha", document.getElementById("senhaInput").value);
-        $cookies.set(
-          "lembrarme",
-          document.getElementById("lembrarmeInput").checked
-        );
+        $cookies.set("lembrarme", document.getElementById("lembrarmeInput").value);
       } else {
         $cookies.remove("usuario");
         $cookies.remove("senha");
